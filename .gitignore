@@ -1,4 +1,6 @@
+.gitignore
 .idea
 bin
 obj
 *.db
+.vs
