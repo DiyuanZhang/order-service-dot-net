@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using order_service.Domains;
 using Xunit;
 
@@ -15,7 +16,10 @@ namespace order_service_test
                 orderItems.Add(new OrderItem());
             }
             var order = new Order(orderItems);
-            Assert.Equal(10, order.GetOrderItems().Count);
+
+            httpClient.GetAsync("api/order");
+            var orders = ResolveSession().Query<Order>().ToList();
+            Assert.Equal(10, order.OrderItems.Count);
         }
 
         [Fact]
@@ -27,7 +31,7 @@ namespace order_service_test
                 orderItems.Add(new OrderItem());
             }
             var order = new Order(orderItems);
-            Assert.Empty(order.GetOrderItems());
+            Assert.Empty(order.OrderItems);
         }
     }
 }

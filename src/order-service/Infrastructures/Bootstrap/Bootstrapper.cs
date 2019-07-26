@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using order_service.Applications;
+using order_service.Domains;
 using order_service.Infrastructures.Bootstrap.DatabaseModules;
 
 namespace order_service.Infrastructures.Bootstrap
@@ -21,7 +23,8 @@ namespace order_service.Infrastructures.Bootstrap
         public void Bootstrap()
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            
+            services.AddScoped<OrderService>();
+            services.AddScoped<OrderRepository>();
             foreach (IServiceModule serviceModule in modules)
             {
                 serviceModule.Load(services);

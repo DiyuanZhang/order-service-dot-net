@@ -1,4 +1,5 @@
 using System;
+using System.Net.Http;
 using Microsoft.Extensions.DependencyInjection;
 using NHibernate;
 using order_service.Infrastructures.Bootstrap;
@@ -8,7 +9,10 @@ namespace order_service_test
 {
     public class FactBase : IDisposable
     {
+        private const string BASE_ADDRESS = "http://order-service.com";
+
         private readonly ServiceProvider Scope;
+        public readonly HttpClient httpClient;
 
         protected FactBase()
         {
@@ -30,6 +34,7 @@ namespace order_service_test
         public void Dispose()
         {
             Scope?.Dispose();
+            httpClient?.Dispose();
         }
     }
 }

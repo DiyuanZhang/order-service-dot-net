@@ -4,15 +4,17 @@ namespace order_service.Domains
 {
     public class Order
     {
-        private List<OrderItem> orderItems;
-        public Order(List<OrderItem> orderItems)
+        public virtual long Id { get; set; }
+        public virtual List<OrderItem> OrderItems { get; set; }
+
+        protected Order()
         {
-            this.orderItems = orderItems.Count > 20 ? new List<OrderItem>() : orderItems;
+            
         }
 
-        public List<OrderItem> GetOrderItems()
+        public Order(List<OrderItem> orderItems)
         {
-            return this.orderItems;
+            OrderItems = orderItems.Count > 20 ? new List<OrderItem>() : orderItems;
         }
     }
 }
