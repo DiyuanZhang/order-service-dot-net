@@ -9,8 +9,6 @@ namespace order_service_test
 {
     public class FactBase : IDisposable
     {
-        private const string BASE_ADDRESS = "http://order-service.com";
-
         private readonly ServiceProvider Scope;
         public readonly HttpClient httpClient;
 
@@ -21,6 +19,7 @@ namespace order_service_test
             new Bootstrapper(services, database).Bootstrap();
 
             Scope = services.BuildServiceProvider();
+            httpClient = new CustomWebApplicationFactory().CreateClient();
         }
 
         protected ISession ResolveSession()

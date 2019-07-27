@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Formatting;
+using order_service.Applications;
 using order_service.Domains;
 using Xunit;
 
@@ -15,9 +18,20 @@ namespace order_service_test
             {
                 orderItems.Add(new OrderItem());
             }
-            var order = new Order(orderItems);
+            var order = new Order();
+            order.SetOrderItems(orderItems);
 
-            httpClient.GetAsync("api/order");
+            httpClient.PostAsync("api/order", new CreateOrderRequest
+            {
+                OrderItems = new List<CreateOrderItemRequest>
+                {
+                    new CreateOrderItemRequest
+                    {
+                        Name = "A"
+                    }
+                }
+            }, new JsonMediaTypeFormatter());
+
             var orders = ResolveSession().Query<Order>().ToList();
             Assert.Equal(10, order.OrderItems.Count);
         }
@@ -30,7 +44,8 @@ namespace order_service_test
             {
                 orderItems.Add(new OrderItem());
             }
-            var order = new Order(orderItems);
+            var order = new Order();
+            order.SetOrderItems(orderItems);
             Assert.Empty(order.OrderItems);
         }
     }

@@ -14,10 +14,10 @@ namespace order_service.Interfaces
             this.orderService = orderService;
         }
         
-        [HttpGet]
-        public ActionResult<string> Create()
+        [HttpPost]
+        public ActionResult<string> Create(CreateOrderRequest request)
         {
-            orderService.Create(new CreateOrderRequest());
+            orderService.Create(request);
             return "Order Service is OK";
         }
     }

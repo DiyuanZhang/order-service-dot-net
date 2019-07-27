@@ -10,7 +10,7 @@ namespace order_service.Infrastructures.Mappings
             Table("OrderItems");
             Id(o => o.Id).GeneratedBy.Native();
             Map(o => o.Name).Column("Name").Not.Nullable();
-            Map(o => o.OrderId).Column("OrderId").Not.Nullable();
+            References(o => o.Order).Column("OrderId");
         }
     }
 }

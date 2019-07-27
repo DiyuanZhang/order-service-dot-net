@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using order_service.Domains;
+using order_service.Infrastructures.Repositories;
 
 namespace order_service.Applications
 {
@@ -14,11 +15,13 @@ namespace order_service.Applications
 
         public void Create(CreateOrderRequest request)
         {
+            var order = new Order();
             var orderItems = request.OrderItems.Select(o => new OrderItem
             {
-                Name = o.Name
+                Name = o.Name,
+                Order = order
             }).ToList();
-            var order = new Order(orderItems);
+            order.SetOrderItems(orderItems);
             orderRepository.Save(order);
         }
     }
