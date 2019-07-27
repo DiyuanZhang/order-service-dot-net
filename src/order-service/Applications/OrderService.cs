@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using order_service.Domains;
-using order_service.Infrastructures.Repositories;
 
 namespace order_service.Applications
 {

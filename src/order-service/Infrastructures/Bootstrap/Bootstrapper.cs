@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using order_service.Applications;
 using order_service.Domains;
 using order_service.Infrastructures.Bootstrap.DatabaseModules;
-using order_service.Infrastructures.Repositories;
 
 namespace order_service.Infrastructures.Bootstrap
 {
